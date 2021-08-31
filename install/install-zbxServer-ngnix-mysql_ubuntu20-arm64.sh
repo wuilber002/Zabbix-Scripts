@@ -18,7 +18,7 @@ RESET='\033[0m'    # Reset color
 
 # Validacao do acesso de root ao servidor:
 if [ `id -u` -ne 0 ]; then
-    printf "[${RED}ERRO${RESET}] root is need... please run 'sudo su -'" 2>&1 | tee --append ${log}
+    printf "[${RED}ERRO${RESET}] root is need... please run 'sudo su -'\n" 2>&1 | tee --append ${log}
     exit 1
 fi
 printf "[ ${GREEN}OK${RESET} ] Premissao de 'root'\n" 2>&1 | tee --append ${log}
