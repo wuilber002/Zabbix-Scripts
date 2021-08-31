@@ -13,6 +13,8 @@
 # Para instalar esse script, execute os dois comandos abaixo:
 # $install_script="https://raw.githubusercontent.com/wuilber002/Zabbix-Scripts/master/install/install-zbxAgent2_windows-x86_64.ps1"
 # Invoke-WebRequest -Uri $install_script -OutFile "$env:TEMP\zabbix_agent_install.ps1"
+# cd $env:TEMP
+# .\zabbix_agent_install.ps1 -server <zabbix_server_address>
 
 # Parametros Ip do Zabbix Server e Data de backup para os arquivos de configuracao.
 param ($server, $port='')
