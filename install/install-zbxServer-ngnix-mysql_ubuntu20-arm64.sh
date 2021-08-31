@@ -1,8 +1,7 @@
 #!/bin/sh
 #===============================================================================
 #         FILE: install-on-ubuntu-20-arm64-zabbix-server-ngnix-external-mysql
-#        USAGE: curl -ks https://github-url-project/install-zbxServer-ngnix-mysql_ubuntu20-arm64.sh| \
-#               bash -s -- <mysql_address> <mysql_root_passwd>
+#        USAGE: curl -ks https://raw.githubusercontent.com/wuilber002/Zabbix-Scripts/master/install/install-zbxServer-ngnix-mysql_ubuntu20-arm64.sh|bash -s -- <mysql_address> <mysql_root_passwd>
 #
 #  DESCRIPTION: Script de instalacao para o Zabbix Server/Agent2 5.4 com nginx e
 #               mysql instalado em servidor diferentes.
