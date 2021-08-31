@@ -15,6 +15,11 @@ GREEN='\033[0;32m' # Green color
 RED='\033[0;31m'   # Red color
 RESET='\033[0m'    # Reset color
 
+if [ `id -u` -ne 0 ]; then
+    printf '[${RED}ERRO${RESET}] Voce precisa esta logado como root... Execute o comando "sudo su -"'
+    exit 1
+fi
+
 # Endereco Ip do Zabbix Server e Data de backup para os arquivos de configuracao.
 zabbix_server=$1
 backup_data=$(date +%Y_%m_%d-%H_%M_%S)
@@ -52,6 +57,6 @@ systemctl status zabbix-agent2.service 2>&1 | tee --append ${log}
 lsof -Pi tcp:10050 +c0 2>&1 | tee --append ${log}
 
 ### Uninstall commands:
-rpm -aq | grep zabbix|xargs yum --assumeyes remove
-rm -rf /etc/zabbix
-firewall-cmd --zone=public --remove-port=10050/tcp --permanent && firewall-cmd --reload
+# rpm -aq | grep zabbix|xargs yum --assumeyes remove
+# rm -rf /etc/zabbix
+# firewall-cmd --zone=public --remove-port=10050/tcp --permanent && firewall-cmd --reload
