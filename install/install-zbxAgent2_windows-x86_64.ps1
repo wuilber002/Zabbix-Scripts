@@ -68,10 +68,8 @@ Start-Service -Name "Zabbix Agent 2" | Out-File -Append -FilePath "$logFile"
 Write-Host ">>> Instalation information <<<"
 Write-Host "> Hostname = $server_name"
 Write-Host "> Local Address ="(Test-Connection -ComputerName (hostname) -Count 1  | Select -ExpandProperty IPV4Address).IPAddressToString
-Write-Host "> Zabbix Server = $server$port"
 Write-Host "> Instalation Folder = $install_folder"
 
-
 ### Uninstall commands:
-(Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Zabbix Agent 2 (64-bit)"}).Uninstall()
-Remove-NetFirewallRule -DisplayName "Zabbix Agent"
+# (Get-WmiObject -Class Win32_Product | Where-Object{$_.Name -eq "Zabbix Agent 2 (64-bit)"}).Uninstall()
+# Remove-NetFirewallRule -DisplayName "Zabbix Agent"
