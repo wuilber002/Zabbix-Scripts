@@ -22,6 +22,8 @@ fi
 
 # Endereco Ip do Zabbix Server e Data de backup para os arquivos de configuracao.
 zabbix_server=$1
+hostname=$(hostname -s|cut -d \. -f 1|tr [a-z] [A-Z])
+local_address=$(hostname -I)
 backup_data=$(date +%Y_%m_%d-%H_%M_%S)
 log="/tmp/zabbix_agent_install_${backup_data}.log"
 if [ -z "${zabbix_server}" ]; then
@@ -46,7 +48,7 @@ sed -i -e "s/Server=127.0.0.1$/Server=${zabbix_server}/" \
 -e "s/# Plugins.SystemRun.LogRemoteCommands=0/Plugins.SystemRun.LogRemoteCommands=1/" \
 -e "s/# DenyKey=system.run[*]/AllowKey=system.run[*]/" \
 -e "s/# UnsafeUserParameters=0/UnsafeUserParameters=1/" \
--e "s/^Hostname=Zabbix server$/Hostname=$(hostname -s|cut -d \. -f 1|tr [a-z] [A-Z])/" \
+-e "s/^Hostname=Zabbix server$/Hostname=$hostname/" \
 /etc/zabbix/zabbix_agent2.conf
 cat /etc/zabbix/zabbix_agent2.conf|egrep '^(Server|LogRemoteCommands|DenyKey|UnsafeUserParameters|Hostname)=' 1>>${log} 2>&1
 
@@ -55,6 +57,10 @@ systemctl enable zabbix-agent2.service 1>>${log} 2>&1
 systemctl start zabbix-agent2.service 1>>${log} 2>&1
 systemctl status zabbix-agent2.service 2>&1 | tee --append ${log}
 lsof -Pi tcp:10050 +c0 2>&1 | tee --append ${log}
+
+printf "\n>>> ${RED}Instalation information${RESET} <<<\n"
+printf "> Hostname = $hostname\n"
+printf "> Local Address = $local_address\n"
 
 ### Uninstall commands:
 # rpm -aq | grep zabbix|xargs yum --assumeyes remove
